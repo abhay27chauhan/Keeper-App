@@ -5,33 +5,13 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function App() {
-    const [inputText, setInputText] = useState({
-        title: "",
-        content: ""
-    });
 
     const [notes, setNotes] = useState([]);
 
-    function handleChange(event) {
-        const { value, name } = event.target;
-
-        setInputText(prevValue => {
-            return {
-                ...prevValue,
-                [name]: value
-            };
-        });
-    }
-
-    function addNote(event) {
+    function addNote(newNote) {
         setNotes(prevValue => {
-            return [...prevValue, inputText];
+            return [...prevValue, newNote];
         });
-        setInputText({
-            title: "",
-            content: ""
-        })
-        event.preventDefault()
     }
 
     function deleteNote(id) {
@@ -44,10 +24,7 @@ function App() {
         <div>
             <Header />
             <CreateArea
-                text={handleChange}
                 addNote={addNote}
-                title={inputText.title}
-                content={inputText.content}
             />
             {notes.map((note, index) => (
                 <Note
